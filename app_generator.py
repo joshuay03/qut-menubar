@@ -9,7 +9,7 @@ class MenuBarApp(rumps.App):
 
     @rumps.clicked("View Timetable")
     def timetable(self, _):
-        gui = gui_creator.GUI()
+        gui = gui_creator.GUI("timetable.csv")
         gui.window.show()
         gui.exec()
 
