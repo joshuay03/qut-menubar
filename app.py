@@ -1,5 +1,5 @@
 import rumps
-import gui_creator
+from gui import GUI
 
 
 class MenuBarApp(rumps.App):
@@ -9,7 +9,7 @@ class MenuBarApp(rumps.App):
 
     @rumps.clicked("View Timetable")
     def timetable(self, _):
-        gui = gui_creator.GUI("timetable.csv")
+        gui = GUI("timetable.csv")
         gui.window.show()
         gui.exec()
 

@@ -1,4 +1,4 @@
-from timetable_extractor import extract_timetable
+from extractor import extract_timetable
 from PyQt5.QtWidgets import *
 
 

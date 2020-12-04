@@ -1,6 +1,6 @@
 from setuptools import setup
 
-APP = ['app_generator.py']
+APP = ['app.py']
 OPTIONS = {
     'argv_emulation': True,
     'plist': {
