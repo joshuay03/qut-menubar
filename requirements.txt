@@ -1,0 +1,4 @@
+setuptools~=50.3.2
+selenium~=3.141.0
+PyQt5~=5.15.2
+rumps~=0.3.0
