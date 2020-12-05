@@ -1,11 +1,14 @@
 import rumps
+from extractor import Student
 from gui import GUI
 
 
 class MenuBarApp(rumps.App):
     def __init__(self):
         super(MenuBarApp, self).__init__("MyQUT")
-        self.menu = ["View Timetable"]
+        student = Student()
+        student.login()
+        self.menu = [f"Current GPA: {student.gpa}", "View Timetable"]
 
     @rumps.clicked("View Timetable")
     def timetable(self, _):

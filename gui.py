@@ -1,5 +1,5 @@
-from extractor import extract_timetable
 from PyQt5.QtWidgets import *
+from extractor import extract_timetable
 
 
 class GUI(QApplication):

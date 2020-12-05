@@ -1,19 +1,33 @@
-from _csv import reader
+from os import getcwd
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+import time
+from _csv import reader
 
 
-def bb_login():
-    driver = webdriver.Safari()
-    driver.get('https://esoe.qut.edu.au/auth/realms/qut/protocol/openid-connect/auth?response_type=code&client_id=shibboleth-2-idp&redirect_uri=https%3A%2F%2Fidp.qut.edu.au%2Fidp%2Fprofile%2FSAML2%2FPOST%2FSSO?execution%3De5s1%26_eventId_proceed%3D1&state=228096%2F235063b5-dfc0-4ddc-b105-b4ac85010379&scope=openid')
+class Student:
+    def __init__(self):
+        self.gpa = 0  # Ouch
 
-    username = driver.find_element_by_id('username')
-    password = driver.find_element_by_id('password')
+    def login(self):
+        options = Options()
+        options.headless = True
+        driver = webdriver.Firefox(options=options, executable_path=getcwd()+'/geckodriver')
 
-    username.send_keys('n10404074')
-    password.send_keys('Naruto19ro99%')
+        driver.get('https://qutvirtual4.qut.edu.au/group/student/home')
+        time.sleep(3)
 
-    login = driver.find_element_by_xpath('//*[@id="kc-login"]')
-    login.click()
+        username = driver.find_element_by_id('username')
+        password = driver.find_element_by_id('password')
+
+        username.send_keys('n10404074')
+        password.send_keys('DJRY030699#')
+
+        login = driver.find_element_by_xpath('//*[@id="kc-login"]')
+        login.click()
+        time.sleep(5)
+
+        self.gpa = driver.find_element_by_class_name('gpa-result-mark').get_attribute('innerHTML')
 
 
 def extract_timetable(timetable_file):
@@ -27,4 +41,4 @@ def extract_timetable(timetable_file):
 
 
 if __name__ == '__main__':
-    bb_login()
+    Student().login()
