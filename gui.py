@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import *
-from extractor import extract_timetable
 
 
 class GUI(QApplication):
-    def __init__(self, timetable_csv):
+    def __init__(self, student):
+        self.student = student
         super(GUI, self).__init__([])
-        self.timetable_csv = timetable_csv
+        self.timetable_csv = self.student.timetable
         self.setStyle('Fusion')
         self.window = QWidget()
         self.layout = QVBoxLayout()
@@ -15,7 +15,7 @@ class GUI(QApplication):
         self.window.setLayout(self.layout)
 
     def create_table(self):
-        rows = extract_timetable(timetable_file=self.timetable_csv)
+        rows = self.student.rows
         table_widget = QTableWidget(len(rows), len(rows[0]))
         row_index = 0
         for row in rows:
@@ -28,9 +28,3 @@ class GUI(QApplication):
         table_widget.resizeColumnsToContents()
 
         return table_widget
-
-
-if __name__ == '__main__':
-    gui = GUI("timetable.csv")
-    gui.window.show()
-    gui.exec()
