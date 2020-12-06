@@ -17,15 +17,21 @@ class Student:
         driver.get('https://qutvirtual4.qut.edu.au/group/student/home')
         time.sleep(3)
 
-        username = driver.find_element_by_id('username')
-        password = driver.find_element_by_id('password')
+        with open('credentials.csv') as csv_file:
+            csv_reader = reader(csv_file)
+            for row in csv_reader:
+                username = row[0]
+                password = row[1]
 
-        username.send_keys('n10404074')
-        password.send_keys('DJRY030699#')
+        username_field = driver.find_element_by_id('username')
+        password_field = driver.find_element_by_id('password')
+
+        username_field.send_keys(username)
+        password_field.send_keys(password)
 
         login = driver.find_element_by_xpath('//*[@id="kc-login"]')
         login.click()
-        time.sleep(5)
+        time.sleep(7.5)
 
         self.gpa = driver.find_element_by_class_name('gpa-result-mark').get_attribute('innerHTML')
 
