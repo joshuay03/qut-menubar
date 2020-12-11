@@ -11,15 +11,17 @@ class MenuBarApp(rumps.App):
 
     @rumps.clicked("Login")
     def login(self, _):
-        self.options_gui.window.show()
-        self.options_gui.exec()
+        if self.student.username == '':
+            self.options_gui.window.show()
+            self.options_gui.exec()
+        else:
+            pass  # TODO: Display already logged in message
 
     @rumps.clicked("Timetable")
     def timetable(self, _):
-        if not self.student.timetable == '':
+        if not self.student.timetable_file == '':
             timetable_gui = TimetableGUI(self.student, self)
             timetable_gui.window.show()
             timetable_gui.exec()
         else:
-            self.options_gui.window.show()
-            self.options_gui.exec()
+            pass  # TODO: Display extract timetable first message

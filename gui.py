@@ -18,16 +18,14 @@ class OptionsGUI(QApplication):
         self.window.setLayout(self.layout)
 
     def credentials_clicked(self):
-        self.student.credentials = 'credentials.csv'
+        self.student.credentials_file = 'credentials.csv'
+        self.student.extract_credentials()
         self.student.login()
-        self.student.extract_gpa()
         self.app.menu.insert_after("Login", f"Current GPA: {self.student.gpa}")
         self.window.close()
-        self.layout.removeWidget(self.credentials_button)
-        self.window.setLayout(self.layout)
 
     def timetable_clicked(self):
-        self.student.timetable = 'timetable.csv'
+        self.student.timetable_file = 'timetable.csv'
         self.student.extract_timetable()
         self.window.close()
 
@@ -37,7 +35,7 @@ class TimetableGUI(QApplication):
         self.student = student
         self.app = app
         super(TimetableGUI, self).__init__([])
-        self.timetable_csv = self.student.timetable
+        self.timetable_csv = self.student.timetable_file
         self.setStyle('Fusion')
         self.window = QWidget()
         self.layout = QVBoxLayout()
@@ -47,7 +45,7 @@ class TimetableGUI(QApplication):
         self.window.resize(900, self.table_widget.rowCount() * 45)
 
     def create_table(self):
-        rows = self.student.rows
+        rows = self.student.timetable_data
         table_widget = QTableWidget(len(rows), len(rows[0]))
         row_index = 0
         for row in rows:
