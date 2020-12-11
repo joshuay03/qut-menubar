@@ -1,23 +1,25 @@
 import rumps
-from extractor import Student
-from gui import GUI
+from gui import *
 
 
 class MenuBarApp(rumps.App):
-    def __init__(self):
+    def __init__(self, student):
+        self.student = student
         super(MenuBarApp, self).__init__("MyQUT")
-        self.student = Student('credentials.csv', 'timetable.csv')
-        self.student.login()
-        self.student.extract_gpa()
-        self.student.extract_timetable()
-        self.menu = [f"Current GPA: {self.student.gpa}", "View Timetable"]
+        self.menu = ["Login", "Timetable"]
+        self.options_gui = OptionsGUI(self.student, self)
 
-    @rumps.clicked("View Timetable")
+    @rumps.clicked("Login")
+    def login(self, _):
+        self.options_gui.window.show()
+        self.options_gui.exec()
+
+    @rumps.clicked("Timetable")
     def timetable(self, _):
-        gui = GUI(self.student)
-        gui.window.show()
-        gui.exec()
-
-
-if __name__ == "__main__":
-    MenuBarApp().run()
+        if not self.student.timetable == '':
+            timetable_gui = TimetableGUI(self.student, self)
+            timetable_gui.window.show()
+            timetable_gui.exec()
+        else:
+            self.options_gui.window.show()
+            self.options_gui.exec()
