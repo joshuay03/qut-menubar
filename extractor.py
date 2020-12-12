@@ -10,11 +10,13 @@ class Student:
         self.credentials_file = ''
         self.timetable_file = ''
         self.options = Options()
-        self.options.headless = False
+        self.options.headless = True
         self.driver = webdriver.Firefox(options=self.options, executable_path=getcwd() + '/geckodriver')
         self.username = ''
         self.password = ''
         self.gpa = 0  # Ouch
+        self.class_list = ''
+        self.units = []
         self.timetable_data = []
 
     def login(self):
@@ -35,11 +37,12 @@ class Student:
 
         try:
             self.gpa = self.driver.find_element_by_class_name('gpa-result-mark').get_attribute('innerHTML')
+            self.class_list = self.driver.find_elements_by_class_name('cr-id ')
+            for unit in self.class_list:
+                self.units.append(unit.get_attribute('innerHTML'))
         finally:
-            self.driver.close()
             self.driver.quit()
 
-        self.driver.close()
         self.driver.quit()
 
     def extract_credentials(self):

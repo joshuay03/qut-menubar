@@ -21,6 +21,7 @@ class OptionsGUI(QApplication):
         self.student.credentials_file = 'credentials.csv'
         self.student.extract_credentials()
         self.student.login()
+        self.app.menu.insert_after("Login", f"Units: {self.student.units}")
         self.app.menu.insert_after("Login", f"Current GPA: {self.student.gpa}")
         self.window.close()
 
